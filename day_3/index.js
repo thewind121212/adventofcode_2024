@@ -1,56 +1,52 @@
-import { add, getInput } from '../utils'
-
-const data = getInput(__dirname)
-
-const formatInput = input => input.trim().split('\n')
-
-const MUL_PATTERN = /mul\(\d{1,3},\d{1,3}\)/g
-
-function sumMuls(muls) {
-  return muls
-    .map(match => {
-      const [x, y] = match
-        .replace('mul(', '')
-        .replace(')', '')
-        .split(',')
-        .map(Number)
-
-      return x * y
-    })
-    .reduce(add, 0)
-}
-
-export function solution1(input) {
-  const lines = formatInput(input)
-  const matches = lines.flatMap(line => line.match(MUL_PATTERN))
-
-  return sumMuls(matches)
-}
 
 
+import fs from 'fs'
+import { machine } from 'os';
+
+
+const input = fs.readFileSync('./03.txt', 'utf8')
+
+
+//soluton 1
+
+const MUL_PATTERN = /mul\((\d+),(\d+)\)/g;
+
+const matchs = input.match(MUL_PATTERN);
+
+let sum1 = 0
+
+matchs.map((match) => {
+  const [a, b] =  match.replace('mul(', '').replace(')', '').split(',')
+  sum1 += Number(a) * Number(b)
+});
+
+console.log(sum1)
+
+//soluton 2
 const MUL_DO_DONT_PATTERN = /mul\(\d{1,3},\d{1,3}\)|do\(\)|don't\(\)/g
 
-export function solution2(input) {
-  const lines = formatInput(input)
-  const matches = lines.flatMap(line => line.match(MUL_DO_DONT_PATTERN))
+const match2 = input.match(MUL_DO_DONT_PATTERN);
 
-  const kept = []
-  let keeping = true
-  for (const match of matches) {
-    if (match === 'do()') {
-      keeping = true
-      continue
-    }
+let sum2 = 0
 
-    if (match === "don't()") {
-      keeping = false
-      continue
-    }
+let isDoMul = true
 
-    if (keeping) {
-      kept.push(match)
-    }
+match2.map((match) => {
+  if (match === 'don\'t()') {
+    isDoMul = false  
+    return
+  }
+  if (match === 'do()') {
+    isDoMul = true
+    return
   }
 
-  return sumMuls(kept)
-}
+  if (isDoMul) {
+    const [a, b] =  match.replace('mul(', '').replace(')', '').split(',')
+    sum2 += Number(a) * Number(b)
+  }
+
+});
+
+console.log(sum2)
+
