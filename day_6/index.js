@@ -102,11 +102,5 @@ while (true) {
     }
     grid[currentPositionY][currentPositionX] = "X";
   }
-//   await sleep(10);
-//   console.log('asdlfjasdlfjsaldfjlsakdjflsadjflkjlkdsajflasdjfl')
-//   console.log(grid.map((row) => row.join("")).join("\n"));
-//   console.log('asdlfjasdlfjsaldfjlsakdjflsadjflkjlkdsajflasdjfl')
 }
 
-console.log(count);
-// console.log(grid.map((row) => row.join("")).join("\n"));
