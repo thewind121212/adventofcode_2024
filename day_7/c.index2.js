@@ -2,9 +2,9 @@
 
 "use strict";
 
-import fs from "fs";
+const fs = require("fs");
 
-const input = fs.readTextFileSync("07.txt").toSring().trim();
+const input = fs.readFileSync("07.txt", "utf8").toString();
 
 var answer = 0;
 

@@ -1,9 +1,9 @@
 
 "use strict"
 
-import fs from 'fs'
+const fs = require("fs");
 
-const input = fs.readTextFileSync("07.txt").toSring().trim()
+const input = fs.readFileSync("test.txt", "utf8").toString().trim();
 
 var answer = 0
 
@@ -30,9 +30,11 @@ function processInput() {
         const operands = [ ]
         
         for (const token of tokens) { operands.push(parseInt(token)) } 
-        
         const operand = operands.shift()
-        
+
+        console.log(operand)
+        console.log("slice", operands.slice(0))
+
         if (checkMath(target, operands.slice(0), operand, "+")) { answer += target; continue }
         
         if (checkMath(target, operands.slice(0), operand, "*")) { answer += target; continue }  
